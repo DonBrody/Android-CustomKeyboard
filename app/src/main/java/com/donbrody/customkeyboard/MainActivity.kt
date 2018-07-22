@@ -1,6 +1,5 @@
 package com.donbrody.customkeyboard
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
@@ -24,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, numberField)
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER_DECIMAL, numberDecimalField)
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.QWERTY, qwertyField)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-        keyboard.resetContent()
     }
 
     override fun onBackPressed() {

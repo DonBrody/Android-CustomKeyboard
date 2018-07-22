@@ -3,14 +3,14 @@ package com.donbrody.customkeyboard.components.expandableView
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.donbrody.customkeyboard.components.ResizeableRelativeLayout
+import com.donbrody.customkeyboard.components.ResizableRelativeLayout
 
 /**
  * Created by Don.Brody on 7/18/18.
  */
 abstract class ExpandableView(
         context: Context, attr: AttributeSet) :
-        ResizeableRelativeLayout(context, attr) {
+        ResizableRelativeLayout(context, attr) {
 
     private var state: ExpandableState? = null
     private val stateListeners = ArrayList<ExpandableStateListener>()

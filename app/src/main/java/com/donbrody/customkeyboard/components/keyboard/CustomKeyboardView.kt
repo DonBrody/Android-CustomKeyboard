@@ -156,6 +156,7 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
 
     override fun configureSelf() {
         renderKeyboard()
+        checkLocationOnScreen()
     }
 
     /**
