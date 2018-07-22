@@ -20,6 +20,7 @@ abstract class ExpandableView(
 
     init {
         state = ExpandableState.EXPANDED // view is expanded when initially created
+        visibility = View.INVISIBLE
     }
 
     override fun onFinishInflate() {
