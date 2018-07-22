@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CustomKeyboard</string>
+
+    <string name="systemKeyboardLabel">System Keyboards</string>
+    <string name="systemNumber">System Number Keyboard</string>
+    <string name="systemNumberDecimal">System Number Decimal Keyboard</string>
+    <string name="systemQwerty">System QWERTY Keyboard</string>
+
+    <string name="customKeyboardLabel">Custom Keyboards</string>
+    <string name="customNumber">Custom Number Keyboard</string>
+    <string name="customNumberDecimal">Custom Number Decimal Keyboard</string>
+    <string name="customQwerty">Custom QWERTY Keyboard</string>
+</resources>
