@@ -6,6 +6,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
@@ -21,6 +22,7 @@ import com.donbrody.customkeyboard.components.keyboard.layouts.KeyboardLayout
 import com.donbrody.customkeyboard.components.keyboard.layouts.NumberDecimalKeyboardLayout
 import com.donbrody.customkeyboard.components.keyboard.layouts.NumberKeyboardLayout
 import com.donbrody.customkeyboard.components.keyboard.layouts.QwertyKeyboardLayout
+import com.donbrody.customkeyboard.components.textFields.CustomTextField
 import com.donbrody.customkeyboard.components.utilities.ComponentUtils
 import java.util.*
 
@@ -87,11 +89,8 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
             if (hasFocus) {
                 ComponentUtils.hideSystemKeyboard(context, field)
 
-                // if we can find a view to the right of or below this field, we want to replace the
+                // if we can find a view below this field, we want to replace the
                 // done button with the next button in the attached keyboard
-                field.focusSearch(View.FOCUS_RIGHT)?.run {
-                    if (this is EditText) keyboards[field]?.hasNextFocus = true
-                }
                 field.focusSearch(View.FOCUS_DOWN)?.run {
                     if (this is EditText) keyboards[field]?.hasNextFocus = true
                 }
@@ -116,6 +115,42 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
                 translateLayout()
             }
         })
+    }
+
+    fun autoRegisterEditTexts(rootView: ViewGroup) {
+        registerEditTextsRecursive(rootView)
+    }
+
+    private fun registerEditTextsRecursive(view: View) {
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                registerEditTextsRecursive(view.getChildAt(i))
+            }
+        } else {
+            if (view is CustomTextField) {
+                registerEditText(view.keyboardType, view)
+            } else if (view is EditText) {
+                when (view.inputType) {
+                    InputType.TYPE_CLASS_NUMBER -> {
+                        registerEditText(CustomKeyboardView.KeyboardType.NUMBER, view)
+                    }
+                    InputType.TYPE_NUMBER_FLAG_DECIMAL -> {
+                        registerEditText(CustomKeyboardView.KeyboardType.NUMBER_DECIMAL, view)
+                    }
+                    else -> {
+                        registerEditText(CustomKeyboardView.KeyboardType.QWERTY, view)
+                    }
+                }
+            }
+        }
+    }
+
+    fun unregisterEditText(field: EditText?) {
+        keyboards.remove(field)
+    }
+
+    fun clearEditTextCache() {
+        keyboards.clear()
     }
 
     private fun renderKeyboard() {
@@ -144,17 +179,14 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
     }
 
     private fun createKeyboardController(type: KeyboardType, ic: InputConnection): KeyboardController? {
-        when(type) {
-            KeyboardType.NUMBER -> {
-                return DefaultKeyboardController(ic)
-            }
+        return when(type) {
             KeyboardType.NUMBER_DECIMAL -> {
-                return NumberDecimalKeyboardController(ic)
+                NumberDecimalKeyboardController(ic)
             }
-            KeyboardType.QWERTY -> {
-                return DefaultKeyboardController(ic)
+            else -> {
+                // not all keyboards require a custom controller
+                DefaultKeyboardController(ic)
             }
-            else -> return@createKeyboardController null // this should never happen
         }
     }
 

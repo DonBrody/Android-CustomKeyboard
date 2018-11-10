@@ -7,7 +7,11 @@
     <string name="systemQwerty">System QWERTY Keyboard</string>
 
     <string name="customKeyboardLabel">Custom Keyboards</string>
+    <string name="customKeyboardAndFieldsLabel">Custom Keyboards and Fields</string>
     <string name="customNumber">Custom Number Keyboard</string>
     <string name="customNumberDecimal">Custom Number Decimal Keyboard</string>
     <string name="customQwerty">Custom QWERTY Keyboard</string>
+
+    <string name="toMainButtonText">Switch to main activity</string>
+    <string name="toAdvancedButtonText">Switch to advanced features activity</string>
 </resources>

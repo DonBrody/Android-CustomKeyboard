@@ -58,31 +58,15 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/labelTextSize"
                 android:textStyle="bold"
-                android:text="@string/customKeyboardLabel"/>
+                android:text="@string/customKeyboardAndFieldsLabel"/>
 
-            <EditText
-                android:id="@+id/testNumberField"
-                android:layout_width="@dimen/fieldWidth"
+            <LinearLayout
+                android:id="@+id/customFieldWrapper"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/fieldMarginBottom"
-                android:maxLength="20"
-                android:hint="@string/customNumber" />
-
-            <EditText
-                android:id="@+id/testNumberDecimalField"
-                android:layout_width="@dimen/fieldWidth"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/fieldMarginBottom"
-                android:maxLength="20"
-                android:hint="@string/customNumberDecimal" />
-
-            <EditText
-                android:id="@+id/testQwertyField"
-                android:layout_width="@dimen/fieldWidth"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/fieldMarginBottom"
-                android:maxLength="50"
-                android:hint="@string/customQwerty" />
+                android:orientation="vertical">
+                <!-- Add custom fields dynamically -->
+            </LinearLayout>
 
             <!-- SWITCH ACTIVITIES BUTTON -->
             <Button
@@ -94,7 +78,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/white"
-                android:text="@string/toAdvancedButtonText"/>
+                android:text="@string/toMainButtonText"/>
         </LinearLayout>
     </ScrollView>
 
