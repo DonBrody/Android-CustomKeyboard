@@ -29,10 +29,10 @@ open class DefaultKeyboardController(inputConnection: InputConnection):
                 clearAll()
             }
             SpecialKey.FORWARD -> {
-                moveCursorForward()
+                moveCursorForwardAction()
             }
             SpecialKey.BACK -> {
-                moveCursorBack()
+                moveCursorBackAction()
             }
             else -> {
                 // If you need access to one of the SpecialKey's not listed here, override

@@ -91,8 +91,8 @@ abstract class KeyboardController(private val inputConnection: InputConnection) 
             return
         }
         inputConnection.commitText(c.toString(), 1)
-        inputText = if (++cursorPosition >= inputText.length) { inputText + c } else {
-            Companion.addCharacter(inputText, c, cursorPosition)
+        inputText = if (cursorPosition++ >= inputText.length) { inputText + c } else {
+            addCharacter(inputText, c, (cursorPosition - 1))
         }
     }
 
@@ -101,7 +101,13 @@ abstract class KeyboardController(private val inputConnection: InputConnection) 
         addCharacter(c)
     }
 
-    internal fun moveCursorForward() {
+    // in the case a synchronous action is required, use this
+    internal fun synchronousMoveCursorForward() {
+        replaceNextCharacter(inputText()[cursorPosition()])
+    }
+
+    // cursor actions are asynchronous events
+    internal fun moveCursorForwardAction() {
         if (cursorPosition >= inputText.length) {
             return
         }
@@ -113,7 +119,7 @@ abstract class KeyboardController(private val inputConnection: InputConnection) 
         )
     }
 
-    internal fun moveCursorBack() {
+    internal fun moveCursorBackAction() {
         if (cursorPosition == 0) {
             return
         }

@@ -272,7 +272,7 @@ class QwertyKeyboardLayout(context: Context, controller: KeyboardController?) :
         val rowFour = ArrayList<View>()
 
         rowFour.add(createCapsButton())
-        rowFour.add(createButton("-", columnWidth, '_'))
+        rowFour.add(createButton("-", columnWidth, '-'))
         rowFour.add(createButton("'", columnWidth, '\''))
         rowFour.add(createButton("\"", columnWidth, '\"'))
         rowFour.add(createButton(":", columnWidth, ':'))
