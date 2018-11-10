@@ -44,14 +44,9 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
                 if (key === KeyboardController.SpecialKey.DONE) {
                     translateLayout()
                 } else if (key === KeyboardController.SpecialKey.NEXT) {
-                    // first we'll look to any views to the right of this field
-                    fieldInFocus?.focusSearch(View.FOCUS_RIGHT)?.let {
-                        it.requestFocus()
-                        return
-                    }
-                    // if none are found, we'll search for views below
                     fieldInFocus?.focusSearch(View.FOCUS_DOWN)?.let {
                         it.requestFocus()
+                        checkLocationOnScreen()
                         return
                     }
                 }
