@@ -223,7 +223,7 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
 
                     if (fieldY > keyboardY) {
                         val deltaY = (fieldY - keyboardY)
-                        val scrollTo = (fieldParent.scrollY + deltaY + this.measuredHeight + 20.toDp)
+                        val scrollTo = (fieldParent.scrollY + deltaY + this.measuredHeight + 10.toDp)
                         fieldParent.smoothScrollTo(0, scrollTo)
                     }
                     break

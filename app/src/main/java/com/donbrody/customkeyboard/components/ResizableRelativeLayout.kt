@@ -1,11 +1,11 @@
 package com.donbrody.customkeyboard.components
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Handler
 import android.support.annotation.CallSuper
 import android.util.AttributeSet
 import android.widget.RelativeLayout
+import com.donbrody.customkeyboard.components.utilities.ComponentUtils
 
 /**
  * Created by Don.Brody on 7/18/18.
@@ -15,10 +15,10 @@ abstract class ResizableRelativeLayout(
         RelativeLayout(context, attr) {
 
     val Int.toPx: Int
-        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+        get() = ComponentUtils.dpToPx(context, this)
 
     val Int.toDp: Int
-        get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+        get() = ComponentUtils.pxToDp(context, this)
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         super.onSizeChanged(width, height, oldWidth, oldHeight)

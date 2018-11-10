@@ -48,5 +48,15 @@ class ComponentUtils {
             val density = context.resources.displayMetrics.density
             return (px / density).toInt()
         }
+
+        fun pxToDp(context: Context, px: Int): Int {
+            val dp = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    px.toFloat(),
+                    context.resources.displayMetrics)
+
+            val density = context.resources.displayMetrics.density
+            return (dp * density).toInt()
+        }
     }
 }

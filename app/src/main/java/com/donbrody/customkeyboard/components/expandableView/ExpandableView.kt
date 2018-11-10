@@ -35,13 +35,13 @@ abstract class ExpandableView(
     fun translateLayout() {
         // Ignore calls that occur during animation (prevents issues from wood-pecker'ing)
         if (state !== ExpandableState.EXPANDING && state !== ExpandableState.COLLAPSING) {
-            val pixels = 1_000.toDp
-            val millis : Long = (pixels / 2.0f).toLong() // translates layout 2px per millisecond
+            val pixels = 500.toDp
+            val millis : Long = pixels.toLong() // translates layout 1px per millisecond
             val deltaY: Float
             when (state) {
                 ExpandableState.EXPANDED -> {
                     updateState(ExpandableState.COLLAPSING)
-                    deltaY = pixels.toFloat() // pushes layout down 1,000 device pixels
+                    deltaY = pixels.toFloat() // pushes layout down 500 device pixels
                     animate().translationY(deltaY).setDuration(millis).withEndAction {
                         updateState(ExpandableState.COLLAPSED)
                         visibility = View.INVISIBLE
