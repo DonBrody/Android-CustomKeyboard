@@ -69,6 +69,10 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
     }
 
     fun registerEditText(type: KeyboardType, field: EditText) {
+        if (!field.isEnabled) {
+            return  // disabled fields do not have input connections
+        }
+
         field.setRawInputType(InputType.TYPE_CLASS_TEXT)
         field.setTextIsSelectable(true)
         field.showSoftInputOnFocus = false
