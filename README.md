@@ -9,7 +9,7 @@ Just download the project, open it in Android Studio, connect to a virtual or ph
 
 The demo is one activity (MainActivity.java). Below are GIF's of the functionality in both ladscape and portrait. Notice that in both orientations the keyboard takes up the full screen width, and the button widths change (they are a percentage of the screen width). That is because it extends the [ResizableRelativeLayout](https://github.com/DonBrody/Android-ResizableRelativeLayout). Additionally, the component responsible for the expansion and collapse of the keyboard is the [ExpandableView](https://github.com/DonBrody/Android-ExpandableView). Please take a look at their documentation for more detail.
 
-<img height="300px" width="400px" src="https://s3.amazonaws.com/don-brody-images/CustomKeyboard+Landscape.gif"/>&nbsp;&nbsp;&nbsp;&nbsp;<img height="400px" width="300px" src="https://s3.amazonaws.com/don-brody-images/CustomKeyboard+Portrait.gif"/>
+<img height="300px" width="400px" src="/CustomKeyboard Landscape.gif?raw=true"/>&nbsp;&nbsp;&nbsp;&nbsp;<img height="400px" width="300px" src="/CustomKeyboard Portrait.gif?raw=true"/>
 
 ## Why I Made It
 The Android system keyboard API is limited and difficult to work with. I spent many hours researching different ways to gain full control of the keyboard, and ended up piecing together a few different approaches and adding some of my own flavor to it. I hope that I can save
