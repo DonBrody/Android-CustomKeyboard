@@ -1,6 +1,9 @@
 # Android-CustomKeyboard
 Fully customizable Android keyboard written in Kotlin.
 
+## Deprecated
+**This package is no longer maintained. I'm no longer an Android developer and have not committed any code in a couple of years now. Please feel free to fork this project and make improvements as needed.**
+
 ## Prerequisites
 Make sure you have a version of Android Studio installed that supports Kotlin (3+ should be fine).
 
