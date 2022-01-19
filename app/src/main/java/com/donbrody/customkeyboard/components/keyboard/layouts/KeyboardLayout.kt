@@ -3,11 +3,14 @@ package com.donbrody.customkeyboard.components.keyboard.layouts
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import com.donbrody.customkeyboard.R
 import com.donbrody.customkeyboard.components.keyboard.KeyboardListener
 import com.donbrody.customkeyboard.components.keyboard.controllers.KeyboardController
 import com.donbrody.customkeyboard.components.utilities.ComponentUtils
@@ -45,23 +48,38 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
         val wrapper = LinearLayout(context)
         val lp = LayoutParams(
                 LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT
+                LayoutParams.MATCH_PARENT
         )
         lp.topMargin = 15.toDp
         lp.bottomMargin = 15.toDp
         wrapper.layoutParams = lp
         wrapper.orientation = VERTICAL
+        wrapper.setBackgroundColor(Color.WHITE)
         return wrapper
     }
 
     private fun createButton(text: String, widthAsPctOfScreen: Float): Button {
         val button = Button(context)
-        button.layoutParams = LayoutParams(
+        val layoutParams: LayoutParams
+        if(this !is QwertyKeyboardLayout) {
+            layoutParams = LayoutParams(
+                (screenWidth / 4.0F - 12).toInt(),
+                LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.setMargins(6, 6, 6, 6)
+        } else {
+            layoutParams = LayoutParams(
                 (screenWidth * widthAsPctOfScreen).toInt(),
                 LayoutParams.WRAP_CONTENT
-        )
-        ComponentUtils.setBackgroundTint(button, Color.LTGRAY)
+            )
+        }
+        button.layoutParams = layoutParams
+        ComponentUtils.setBackgroundTint(button, Color.WHITE)
+        button.background = ContextCompat.getDrawable(context, R.drawable.bg_white_border_black_cornered_button)
+        button.setTextColor(ContextCompat.getColor(context, R.color.colorBlack))
+        button.setTypeface(null, Typeface.NORMAL)
         button.setAllCaps(false)
+        button.stateListAnimator = null
         button.textSize = textSize
         button.text = text
         return button

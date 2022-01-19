@@ -8,14 +8,14 @@ import com.donbrody.customkeyboard.components.keyboard.controllers.KeyboardContr
 /**
  * Created by Don.Brody on 7/20/18.
  */
-class NumberDecimalKeyboardLayout(context: Context, controller: KeyboardController?) :
-        KeyboardLayout(context, controller) {
-
-    constructor(context: Context): this(context, null)
+class NumberDecimalKeyboardLayout(context: Context, controller: KeyboardController?,
+                                  private val decimalSeparator: Char
+) :
+    KeyboardLayout(context, controller) {
 
     override fun createRows(): List<LinearLayout> {
         val columnWidth = 0.20f
-        textSize = 22.0f
+        textSize = 30.0f
 
         val rowOne = ArrayList<View>()
         rowOne.add(createButton("1", columnWidth, '1'))
@@ -37,7 +37,8 @@ class NumberDecimalKeyboardLayout(context: Context, controller: KeyboardControll
         rowThree.add(createButton("7", columnWidth, '7'))
         rowThree.add(createButton("8", columnWidth, '8'))
         rowThree.add(createButton("9", columnWidth, '9'))
-        rowThree.add(createButton(".", columnWidth, '.'))
+        rowThree.add(createButton(decimalSeparator.toString(), columnWidth, decimalSeparator))
+
 
         val rowFour = ArrayList<View>()
         rowFour.add(createButton("⇦", columnWidth, KeyboardController.SpecialKey.BACK))

@@ -29,10 +29,11 @@ import java.util.*
 /**
  * Created by Don.Brody on 7/18/18.
  */
-class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(context, attr) {
+open class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(context, attr) {
     private var fieldInFocus: EditText? = null
     private val keyboards = HashMap<EditText, KeyboardLayout?>()
     private val keyboardListener: KeyboardListener
+    private var decimalSeparator: Char = '.'
 
     init {
         setBackgroundColor(Color.GRAY)
@@ -163,13 +164,21 @@ class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(
         }
     }
 
+    fun setDecimalSeparator(decimalSeparator: Char) {
+        this.decimalSeparator = decimalSeparator
+    }
+
     private fun createKeyboardLayout(type: KeyboardType, ic: InputConnection): KeyboardLayout? {
         when(type) {
             KeyboardType.NUMBER -> {
                 return NumberKeyboardLayout(context, createKeyboardController(type, ic))
             }
             KeyboardType.NUMBER_DECIMAL -> {
-                return NumberDecimalKeyboardLayout(context, createKeyboardController(type, ic))
+                return NumberDecimalKeyboardLayout(
+                    context,
+                    createKeyboardController(type, ic),
+                    decimalSeparator
+                )
             }
             KeyboardType.QWERTY -> {
                 return QwertyKeyboardLayout(context, createKeyboardController(type, ic))
