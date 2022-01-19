@@ -3,7 +3,7 @@ package com.donbrody.customkeyboard.components.utilities
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import android.text.InputFilter
 import android.view.View
 import android.view.inputmethod.InputMethodManager

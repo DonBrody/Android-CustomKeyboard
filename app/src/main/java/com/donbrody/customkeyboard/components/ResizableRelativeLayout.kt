@@ -2,7 +2,7 @@ package com.donbrody.customkeyboard.components
 
 import android.content.Context
 import android.os.Handler
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import com.donbrody.customkeyboard.components.utilities.ComponentUtils
