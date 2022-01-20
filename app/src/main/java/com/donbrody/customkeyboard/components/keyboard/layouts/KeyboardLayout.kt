@@ -91,8 +91,10 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
         return button
     }
 
-    internal fun createButton(text: String, widthAsPctOfScreen: Float,
-                              key: KeyboardController.SpecialKey): Button {
+    internal fun createButton(
+        text: String, widthAsPctOfScreen: Float,
+        key: KeyboardController.SpecialKey
+    ): Button {
         val button = createButton(text, widthAsPctOfScreen)
         button.setOnClickListener { controller?.onKeyStroke(key) }
         return button
