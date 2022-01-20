@@ -2,8 +2,11 @@ package com.donbrody.customkeyboard.components.keyboard
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -24,6 +27,10 @@ import com.donbrody.customkeyboard.components.keyboard.layouts.NumberKeyboardLay
 import com.donbrody.customkeyboard.components.keyboard.layouts.QwertyKeyboardLayout
 import com.donbrody.customkeyboard.components.textFields.CustomTextField
 import com.donbrody.customkeyboard.components.utilities.ComponentUtils
+import java.lang.Exception
+import java.lang.NumberFormatException
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 /**
@@ -34,6 +41,7 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
     private val keyboards = HashMap<EditText, KeyboardLayout?>()
     private val keyboardListener: KeyboardListener
     private var decimalSeparator: Char = '.'
+    private var thousandSeparator: Char = ','
 
     init {
         setBackgroundColor(Color.GRAY)
@@ -116,6 +124,51 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
                 translateLayout()
             }
         })
+
+        field.addTextChangedListener(object : TextWatcher {
+
+            // https://stackify.dev/354994-add-comma-as-thousands-separator-for-numbers-in-edittext-for-android-studio
+            override fun afterTextChanged(p0: Editable?) {
+                field.removeTextChangedListener(this)
+
+                try {
+                    var givenstring: String = p0.toString()
+                    if (givenstring.contains(thousandSeparator)) {
+                        givenstring = givenstring.replace(thousandSeparator.toString(), "")
+                    }
+                    val doubleVal: Double = givenstring.toDouble()
+
+                    // https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
+                    val unusualSymbols = DecimalFormatSymbols()
+                    unusualSymbols.decimalSeparator = decimalSeparator
+                    unusualSymbols.groupingSeparator = thousandSeparator
+
+                    val formatter = DecimalFormat("#,##0.##", unusualSymbols)
+                    formatter.groupingSize = 3
+                    val formattedString = formatter.format(doubleVal)
+
+                    field.setText(formattedString)
+                    field.setSelection(field.text.length)
+                    // to place the cursor at the end of text
+                } catch (nfe: NumberFormatException) {
+                    nfe.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+                field.addTextChangedListener(this)
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // no need any callback for this.
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // no need any callback for this.
+            }
+
+        })
     }
 
     fun autoRegisterEditTexts(rootView: ViewGroup) {
@@ -166,6 +219,10 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
 
     fun setDecimalSeparator(decimalSeparator: Char) {
         this.decimalSeparator = decimalSeparator
+    }
+
+    fun setThousandSeparator(thousandSeparator: Char) {
+        this.thousandSeparator = thousandSeparator
     }
 
     private fun createKeyboardLayout(type: KeyboardType, ic: InputConnection): KeyboardLayout? {
